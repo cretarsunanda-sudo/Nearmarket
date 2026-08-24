@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Near Market — Dakshin Dinajpur</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="top">
+        <div class="logo">📍 Near Market</div>
+        <button class="btn login" onclick="alert('Account registration will be connected in the next version.')">Account</button>
+      </div>
+      <div style="margin-top:6px">Dakshin Dinajpur-এর নিজের local marketplace</div>
+      <div class="search">
+        <input id="q" placeholder="দোকান, খাবার, মিস্ত্রি বা কাজের লোক খুঁজুন">
+        <button class="btn" onclick="search()">Search</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section">
+      <h2>আপনি কী খুঁজছেন?</h2>
+      <div class="grid">
+        <div class="card" onclick="filter('shop')"><div class="cat">🛒</div><h3>Market & Shops</h3><div class="muted">কাছাকাছি দোকান ও পণ্য</div></div>
+        <div class="card" onclick="filter('food')"><div class="cat">🍔</div><h3>Food</h3><div class="muted">খাবার অর্ডার + COD</div></div>
+        <div class="card" onclick="filter('repair')"><div class="cat">🔧</div><h3>Repairing</h3><div class="muted">মিস্ত্রি ও repair service</div></div>
+        <div class="card" onclick="filter('worker')"><div class="cat">👷</div><h3>Home Worker</h3><div class="muted">বাড়ির কাজের লোক</div></div>
+      </div>
+      <button class="btn add" onclick="alert('Add Shop/Service form will be connected in the next version.')">＋ নিজের Shop / Service যোগ করুন</button>
+    </section>
+
+    <section class="section">
+      <h2>Local Services</h2>
+      <div class="items" id="items">
+        <div class="item" data-type="shop"><span class="tag">SHOP</span><h3>Local Grocery Shop</h3><div class="muted">Daily needs • Nearby</div><div class="actions"><button class="btn call">📞 Call</button></div></div>
+        <div class="item" data-type="food"><span class="tag">FOOD • COD</span><h3>Local Food Corner</h3><div class="muted">Rice, biryani, snacks</div><div class="actions"><button class="btn call" onclick="alert('Food ordering will be connected in the next version.')">🍔 Order</button></div></div>
+        <div class="item" data-type="repair"><span class="tag">REPAIR</span><h3>Electrician</h3><div class="muted">Home electrical repair</div><div class="actions"><button class="btn call">📞 Call</button></div></div>
+        <div class="item" data-type="worker"><span class="tag">HOME SERVICE</span><h3>Home Helper</h3><div class="muted">Cleaning / household help</div><div class="actions"><button class="btn call">📞 Contact</button></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>📢 Local Ads</h2>
+      <div class="card">
+        <h3>আপনার ব্যবসার বিজ্ঞাপন দিন</h3>
+        <div class="muted">Shop, service বা local offer-এর বিজ্ঞাপন এখানে দেখানো যাবে।</div>
+        <button class="btn add" onclick="alert('Ad submission will be connected in the next version.')">Advertisement দিন</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Near Market • First version • Dakshin Dinajpur</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
