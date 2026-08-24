@@ -1,39 +1,1448 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Near Market — Dakshin Dinajpur</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Near Market — Dakshin Dinajpur</title>
+
+  <meta
+    name="description"
+    content="Dakshin Dinajpur-এর নিজের local marketplace"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background: #f5f7fb;
+      color: #202124;
+    }
+
+    header {
+      background:
+        linear-gradient(
+          135deg,
+          #0f766e,
+          #16a34a
+        );
+
+      color: white;
+      padding: 22px 16px 28px;
+
+      border-radius:
+        0 0 24px 24px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .tagline {
+      margin: 5px 0 0;
+      opacity: .9;
+      font-size: 14px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .account-btn {
+      background: white;
+      color: #166534;
+      padding: 10px 14px;
+      border-radius: 12px;
+    }
+
+    .search {
+      display: flex;
+      gap: 6px;
+      margin-top: 20px;
+      background: white;
+      padding: 5px;
+      border-radius: 14px;
+    }
+
+    .search input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    .search button {
+      background: #111827;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+    }
+
+    main {
+      padding: 20px 16px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 12px;
+    }
+
+    .category {
+      background: white;
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow:
+        0 4px 18px rgba(0,0,0,.06);
+
+      cursor: pointer;
+    }
+
+    .category:hover {
+      transform: translateY(-2px);
+    }
+
+    .emoji {
+      font-size: 30px;
+    }
+
+    .category h3 {
+      margin: 8px 0 4px;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .add-btn {
+      width: 100%;
+      margin-top: 18px;
+      background: #111827;
+      color: white;
+      padding: 14px;
+      border-radius: 13px;
+      font-size: 15px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 12px;
+    }
+
+    .service {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid #eee;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ecfdf5;
+      color: #047857;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .service h3 {
+      margin: 10px 0 5px;
+    }
+
+    .call {
+      display: inline-block;
+      margin-top: 10px;
+      background: #dcfce7;
+      color: #166534;
+      padding: 9px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+
+      position: fixed;
+      inset: 0;
+
+      background:
+        rgba(0,0,0,.55);
+
+      z-index: 999;
+
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: white;
+      max-width: 420px;
+      margin: 50px auto;
+      padding: 22px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+
+      background: #f3f4f6;
+      width: 35px;
+      height: 35px;
+
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      background: #f3f4f6;
+    }
+
+    .tab.active {
+      background: #166534;
+      color: white;
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
+    }
+
+    .form input,
+    .form select {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+
+      border:
+        1px solid #ddd;
+
+      border-radius: 10px;
+
+      font-size: 15px;
+    }
+
+    .submit {
+      width: 100%;
+      margin-top: 8px;
+
+      background: #166534;
+      color: white;
+
+      padding: 13px;
+      border-radius: 11px;
+    }
+
+    .message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .profile {
+      display: none;
+    }
+
+    .logout {
+      background: #dc2626;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 700px) {
+      .categories {
+        grid-template-columns:
+          repeat(5, 1fr);
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <div class="logo">📍 Near Market</div>
-        <p class="tagline">Dakshin Dinajpur-এর নিজের local marketplace</p>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="দোকান, খাবার বা কাজের লোক খুঁজুন...">
-            <button onclick="searchServices()">Search</button>
-        </div>
-    </header>
 
-    <main>
-        <h2>আপনি কী খুঁজছেন?</h2>
-        <div class="category-grid">
-            <div class="card" onclick="filterCategory('shop')">🛒 Market & Shops</div>
-            <div class="card" onclick="filterCategory('food')">🍔 Food</div>
-            <div class="card" onclick="filterCategory('repair')">🔧 Repairing</div>
-            <div class="card" onclick="filterCategory('worker')">👷 Home Worker</div>
-            <div class="card" onclick="filterCategory('all')">🔄 Show All</div>
+<header>
+  <div class="container">
+
+    <div class="top">
+
+      <div>
+        <div class="logo">
+          📍 Near Market
         </div>
 
-        <button onclick="openAddForm()" class="add-btn">+ নিজের Shop / Service যোগ করুন</button>
-
-        <h2>Local Services</h2>
-        <div id="services-list" class="services-grid">
-            <!-- Services will load here -->
+        <div class="tagline">
+          Dakshin Dinajpur-এর নিজের local marketplace
         </div>
-    </main>
+      </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+      <button
+        class="account-btn"
+        onclick="openAccount()"
+      >
+        👤 Account
+      </button>
+
+    </div>
+
+    <div class="search">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="দোকান, খাবার বা কাজের লোক খুঁজুন..."
+      >
+
+      <button onclick="searchServices()">
+        Search
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<main class="container">
+
+  <h2>
+    আপনি কী খুঁজছেন?
+  </h2>
+
+  <div class="categories">
+
+    <div
+      class="category"
+      onclick="filterCategory('shop')"
+    >
+      <div class="emoji">🛒</div>
+      <h3>Market & Shops</h3>
+      <div class="muted">
+        কাছের দোকান
+      </div>
+    </div>
+
+
+    <div
+      class="category"
+      onclick="filterCategory('food')"
+    >
+      <div class="emoji">🍔</div>
+      <h3>Food</h3>
+      <div class="muted">
+        Restaurant & খাবার
+      </div>
+    </div>
+
+
+    <div
+      class="category"
+      onclick="filterCategory('repair')"
+    >
+      <div class="emoji">🔧</div>
+      <h3>Repairing</h3>
+      <div class="muted">
+        Repair service
+      </div>
+    </div>
+
+
+    <div
+      class="category"
+      onclick="filterCategory('worker')"
+    >
+      <div class="emoji">👷</div>
+      <h3>Home Worker</h3>
+      <div class="muted">
+        বাড়ির কাজ
+      </div>
+    </div>
+
+
+    <div
+      class="category"
+      onclick="filterCategory('all')"
+    >
+      <div class="emoji">🔄</div>
+      <h3>Show All</h3>
+      <div class="muted">
+        সব service
+      </div>
+    </div>
+
+  </div>
+
+
+  <button
+    class="add-btn"
+    onclick="openAddForm()"
+  >
+    + নিজের Shop / Service যোগ করুন
+  </button>
+
+
+  <section>
+
+    <h2>
+      Local Services
+    </h2>
+
+    <div
+      id="services"
+      class="services"
+    ></div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  © 2026 Near Market — Dakshin Dinajpur
+</footer>
+
+
+<!-- ACCOUNT MODAL -->
+
+<div
+  id="accountModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeAccount()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      👤 Near Market Account
+    </h2>
+
+
+    <div class="tabs">
+
+      <button
+        id="loginTab"
+        class="tab active"
+        onclick="showLogin()"
+      >
+        Login
+      </button>
+
+      <button
+        id="registerTab"
+        class="tab"
+        onclick="showRegister()"
+      >
+        Register
+      </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <form
+      id="loginForm"
+      class="form active"
+      onsubmit="login(event)"
+    >
+
+      <input
+        id="loginPhone"
+        type="tel"
+        placeholder="Mobile number"
+        required
+      >
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Password"
+        required
+      >
+
+      <button
+        class="submit"
+        type="submit"
+      >
+        Login
+      </button>
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <form
+      id="registerForm"
+      class="form"
+      onsubmit="register(event)"
+    >
+
+      <input
+        id="registerName"
+        type="text"
+        placeholder="আপনার নাম"
+        required
+      >
+
+      <input
+        id="registerPhone"
+        type="tel"
+        placeholder="Mobile number"
+        required
+      >
+
+      <input
+        id="registerPassword"
+        type="password"
+        placeholder="Password"
+        required
+      >
+
+      <select id="registerRole">
+
+        <option value="customer">
+          Customer
+        </option>
+
+        <option value="seller">
+          Shop / Service Owner
+        </option>
+
+      </select>
+
+
+      <button
+        class="submit"
+        type="submit"
+      >
+        Create Account
+      </button>
+
+    </form>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+    <!-- PROFILE -->
+
+    <div
+      id="profile"
+      class="profile"
+    >
+
+      <h3>
+        Account
+      </h3>
+
+      <p id="profileName"></p>
+      <p id="profilePhone"></p>
+      <p id="profileRole"></p>
+
+      <button
+        class="logout"
+        onclick="logout()"
+      >
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let services = [];
+
+let currentCategory = "all";
+
+
+/* =========================
+   ACCOUNT
+========================= */
+
+function openAccount() {
+
+  document
+    .getElementById("accountModal")
+    .style.display = "block";
+
+  checkLogin();
+
+}
+
+
+function closeAccount() {
+
+  document
+    .getElementById("accountModal")
+    .style.display = "none";
+
+}
+
+
+function showLogin() {
+
+  document
+    .getElementById("loginForm")
+    .classList.add("active");
+
+  document
+    .getElementById("registerForm")
+    .classList.remove("active");
+
+  document
+    .getElementById("loginTab")
+    .classList.add("active");
+
+  document
+    .getElementById("registerTab")
+    .classList.remove("active");
+
+}
+
+
+function showRegister() {
+
+  document
+    .getElementById("registerForm")
+    .classList.add("active");
+
+  document
+    .getElementById("loginForm")
+    .classList.remove("active");
+
+  document
+    .getElementById("registerTab")
+    .classList.add("active");
+
+  document
+    .getElementById("loginTab")
+    .classList.remove("active");
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text) {
+
+  const box =
+    document.getElementById("message");
+
+  box.innerText = text;
+
+  box.style.display = "block";
+
+}
+
+
+function clearMessage() {
+
+  document
+    .getElementById("message")
+    .style.display = "none";
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+async function register(event) {
+
+  event.preventDefault();
+
+  clearMessage();
+
+  const name =
+    document.getElementById(
+      "registerName"
+    ).value;
+
+  const phone =
+    document.getElementById(
+      "registerPhone"
+    ).value;
+
+  const password =
+    document.getElementById(
+      "registerPassword"
+    ).value;
+
+  const role =
+    document.getElementById(
+      "registerRole"
+    ).value;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/register",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            name,
+            phone,
+            password,
+            role
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      showMessage(
+        data.error ||
+        "Registration failed"
+      );
+
+      return;
+    }
+
+
+    localStorage.setItem(
+      "nearMarketToken",
+      data.token
+    );
+
+
+    showMessage(
+      "✅ Account successfully created!"
+    );
+
+
+    setTimeout(() => {
+
+      checkLogin();
+
+    }, 700);
+
+
+  } catch (error) {
+
+    showMessage(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(event) {
+
+  event.preventDefault();
+
+  clearMessage();
+
+  const phone =
+    document.getElementById(
+      "loginPhone"
+    ).value;
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/login",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            phone,
+            password
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      showMessage(
+        data.error ||
+        "Login failed"
+      );
+
+      return;
+    }
+
+
+    localStorage.setItem(
+      "nearMarketToken",
+      data.token
+    );
+
+
+    showMessage(
+      "✅ Login successful!"
+    );
+
+
+    setTimeout(() => {
+
+      checkLogin();
+
+    }, 500);
+
+
+  } catch (error) {
+
+    showMessage(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+async function checkLogin() {
+
+  const token =
+    localStorage.getItem(
+      "nearMarketToken"
+    );
+
+
+  if (!token) {
+
+    document
+      .getElementById("profile")
+      .style.display = "none";
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/me",
+        {
+          headers: {
+            Authorization:
+              "Bearer " + token
+          }
+        }
+      );
+
+
+    if (!response.ok) {
+
+      localStorage.removeItem(
+        "nearMarketToken"
+      );
+
+      return;
+    }
+
+
+    const data =
+      await response.json();
+
+
+    document
+      .getElementById("loginForm")
+      .classList.remove("active");
+
+    document
+      .getElementById("registerForm")
+      .classList.remove("active");
+
+
+    document
+      .getElementById("profile")
+      .style.display = "block";
+
+
+    document
+      .getElementById("profileName")
+      .innerText =
+      "Name: " + data.user.name;
+
+
+    document
+      .getElementById("profilePhone")
+      .innerText =
+      "Phone: " + data.user.phone;
+
+
+    document
+      .getElementById("profileRole")
+      .innerText =
+      "Account: " + data.user.role;
+
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout() {
+
+  localStorage.removeItem(
+    "nearMarketToken"
+  );
+
+  document
+    .getElementById("profile")
+    .style.display = "none";
+
+  showLogin();
+
+  showMessage(
+    "You have been logged out."
+  );
+
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+async function loadServices() {
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/services"
+      );
+
+
+    const data =
+      await response.json();
+
+
+    services =
+      data.services || [];
+
+
+    displayServices(
+      services
+    );
+
+
+  } catch (error) {
+
+    services = [
+      {
+        name:
+          "Local Grocery Shop",
+
+        category:
+          "shop",
+
+        description:
+          "Daily needs • Nearby",
+
+        phone:
+          "9876543210"
+      },
+
+      {
+        name:
+          "Delicious Restaurant",
+
+        category:
+          "food",
+
+        description:
+          "Fast Food & Biryani",
+
+        phone:
+          "9876543211"
+      },
+
+      {
+        name:
+          "Quick Electric Repair",
+
+        category:
+          "repair",
+
+        description:
+          "Fan, TV, AC Repair",
+
+        phone:
+          "9876543212"
+      },
+
+      {
+        name:
+          "Home Maid / Cleaner",
+
+        category:
+          "worker",
+
+        description:
+          "House Cleaning & Cooking",
+
+        phone:
+          "9876543213"
+      }
+    ];
+
+
+    displayServices(
+      services
+    );
+
+  }
+
+}
+
+
+function displayServices(data) {
+
+  const list =
+    document.getElementById(
+      "services"
+    );
+
+
+  list.innerHTML = "";
+
+
+  if (!data.length) {
+
+    list.innerHTML =
+      "<p class='muted'>কোনো service পাওয়া যায়নি।</p>";
+
+    return;
+
+  }
+
+
+  data.forEach(item => {
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+
+    card.className =
+      "service";
+
+
+    card.innerHTML = `
+
+      <span class="badge">
+        ${(item.category || "service").toUpperCase()}
+      </span>
+
+      <h3>
+        ${escapeHtml(item.name)}
+      </h3>
+
+      <p class="muted">
+        ${escapeHtml(
+          item.description ||
+          item.desc ||
+          "Local Service"
+        )}
+      </p>
+
+      <a
+        class="call"
+        href="tel:${item.phone}"
+      >
+        📞 Call ${item.phone}
+      </a>
+
+    `;
+
+
+    list.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+function filterCategory(category) {
+
+  currentCategory =
+    category;
+
+
+  if (category === "all") {
+
+    displayServices(
+      services
+    );
+
+    return;
+
+  }
+
+
+  const filtered =
+    services.filter(
+      item =>
+        item.category ===
+        category
+    );
+
+
+  displayServices(
+    filtered
+  );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchServices() {
+
+  const query =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  if (!query) {
+
+    filterCategory(
+      currentCategory
+    );
+
+    return;
+
+  }
+
+
+  const filtered =
+    services.filter(
+      item => {
+
+        const text =
+          (
+            item.name +
+            " " +
+            item.category +
+            " " +
+            (
+              item.description ||
+              item.desc ||
+              ""
+            )
+          ).toLowerCase();
+
+
+        return text.includes(
+          query
+        );
+
+      }
+    );
+
+
+  displayServices(
+    filtered
+  );
+
+}
+
+
+/* =========================
+   ADD SHOP / SERVICE
+========================= */
+
+async function openAddForm() {
+
+  const token =
+    localStorage.getItem(
+      "nearMarketToken"
+    );
+
+
+  if (!token) {
+
+    openAccount();
+
+    showRegister();
+
+    showMessage(
+      "আগে Account তৈরি করুন।"
+    );
+
+    return;
+
+  }
+
+
+  const name =
+    prompt(
+      "দোকান বা সার্ভিসের নাম লিখুন:"
+    );
+
+
+  if (!name) return;
+
+
+  const category =
+    prompt(
+      "Category লিখুন: shop / food / repair / worker"
+    );
+
+
+  if (!category) return;
+
+
+  const description =
+    prompt(
+      "সংক্ষিপ্ত বিবরণ লিখুন:"
+    );
+
+
+  const phone =
+    prompt(
+      "মোবাইল নম্বর দিন:"
+    );
+
+
+  if (!phone) return;
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/services",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+
+            Authorization:
+              "Bearer " + token
+          },
+
+          body: JSON.stringify({
+            name,
+            category,
+            description,
+            phone
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      alert(
+        data.error ||
+        "Service যোগ করা যায়নি"
+      );
+
+      return;
+
+    }
+
+
+    alert(
+      "✅ আপনার Shop/Service সফলভাবে যুক্ত হয়েছে!"
+    );
+
+
+    loadServices();
+
+
+  } catch (error) {
+
+    alert(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    loadServices();
+
+    checkLogin();
+
+  }
+);
+
+
+window.onclick =
+  function(event) {
+
+    const modal =
+      document.getElementById(
+       
