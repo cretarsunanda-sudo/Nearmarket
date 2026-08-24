@@ -1,12 +1,15 @@
 {
-  "name": "near-market-dakshin-dinajpur",
+  "name": "near-market",
   "version": "1.0.0",
-  "description": "Local Marketplace for Dakshin Dinajpur",
+  "description": "Near Market local marketplace",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.7.0",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
   }
 }
